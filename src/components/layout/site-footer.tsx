@@ -1,23 +1,46 @@
 import Link from "next/link";
-import { Facebook, Instagram, Mail, MapPin, Phone } from "lucide-react";
+import { Facebook, Instagram, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
 import { Logo } from "@/components/brand/logo";
 import { Container } from "@/components/layout/container";
 import { BRAND_NAME, BRAND_TAGLINE } from "@/lib/brand";
 import { getCatalog, getSiteConfig } from "@/lib/api";
 import { hasActiveDiscount } from "@/lib/product-utils";
 import { safeHref } from "@/lib/utils";
+import { WHATSAPP_NUMBER } from "@/lib/whatsapp";
 
 const SOCIAL = [
-  { key: "instagram", label: "إنستغرام", Icon: Instagram },
-  { key: "facebook", label: "فيسبوك", Icon: Facebook },
   { key: "x", label: "X", Icon: null },
   { key: "tiktok", label: "تيك توك", Icon: null },
+] as const;
+
+const SOCIAL_LINKS = [
+  {
+    key: "whatsapp",
+    label: "واتساب",
+    Icon: MessageCircle,
+    href: `https://wa.me/${WHATSAPP_NUMBER}`,
+  },
+  {
+    key: "instagram",
+    label: "إنستغرام",
+    Icon: Instagram,
+    href: "https://www.instagram.com/engineer_step_sy?exln=MTYwZzhnbnBnbm9kOQ%3D%3D&utm_source=qr",
+  },
+  {
+    key: "facebook",
+    label: "فيسبوك",
+    Icon: Facebook,
+    href: "https://www.facebook.com/share/1Hxey2RRV4/?mibextid=wwXIfr",
+  },
 ] as const;
 
 export async function SiteFooter() {
   const [{ categories, products }, site] = await Promise.all([getCatalog(), getSiteConfig()]);
   const showOffers = site.offersEnabled && products.some(hasActiveDiscount);
-  const socials = SOCIAL.map((s) => ({ ...s, href: safeHref(site.social[s.key]) })).filter((s) => s.href);
+  const socials = [
+    ...SOCIAL_LINKS,
+    ...SOCIAL.map((s) => ({ ...s, href: safeHref(site.social[s.key]) })).filter((s) => s.href),
+  ];
 
   return (
     <footer className="mt-24 bg-ink text-white">

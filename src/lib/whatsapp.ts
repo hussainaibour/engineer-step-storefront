@@ -2,6 +2,8 @@ import type { CartItem, Product } from "@/lib/types";
 import { BRAND_NAME_AR } from "@/lib/brand";
 import { formatPrice } from "@/lib/utils";
 
+export const WHATSAPP_NUMBER = "963980129818";
+
 export function buildWhatsAppOrderMessage(items: CartItem[], note?: string): string {
   const lines: string[] = [`مرحباً ${BRAND_NAME_AR}،`, "أرغب بإتمام الطلب التالي:", ""];
   items.forEach((item, i) => {

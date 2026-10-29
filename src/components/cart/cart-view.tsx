@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Minus, Plus, ShoppingBag, Trash2 } from "lucide-react";
+import { MessageCircle, Minus, Plus, ShoppingBag, Trash2 } from "lucide-react";
 import { useMemo, useState } from "react";
 import { Button, LinkButton } from "@/components/ui/button";
 import { EmptyState } from "@/components/ui/empty-state";
@@ -106,6 +106,7 @@ export function CartView({ whatsappNumber }: { whatsappNumber: string }) {
         </div>
         {url ? (
           <LinkButton href={url} external variant="whatsapp" size="lg" className="w-full">
+            <MessageCircle className="h-5 w-5" />
             إرسال الطلب عبر واتساب
           </LinkButton>
         ) : (
